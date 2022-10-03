@@ -1,48 +1,32 @@
-class Usuario {
-    nombre; 
-    apellido; 
-    libros; 
-    mascotas;
-    constructor (nombre, apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.libros = [];
-        this.mascotas = [];
+const fs = require('fs');
+const path = require('path');
 
-    }
+const nombreArchivo = 'products.json';
 
-    getFullName(){
+const readFile = ()=> {
+    const dato = fs.readFileSync(nombreArchivo, 'utf-8');
+    return JSON.parse(dato);
 
-        console.log(`Soy  ${this.nombre} ${this.apellido}`)
-    }
-    
-    addMascota(name_dog, name_cat){
-        this.mascotas.push(name_dog, name_cat)
-    }
-    
-    countMascotas(){
-        console.log(`El largo del array es de ${this.mascotas.length}`)
-    }
-    
-    addBook(nombre, autor){
-        this.libros.push({name: nombre, author:autor})
-    }
-    
-    getBookNames(){
-        console.log(this.libros.map((e)=> e.name))
-
-    }
-
-    
-    
 }
 
-const usuario = new Usuario('Valentin','Alvarez');
-usuario.getFullName()
-usuario.addMascota('Fido', 'Peter')
-usuario.countMascotas()
-usuario.addBook('Mi historias Biblicas', 'Testigos de Jehová')
-usuario.getBookNames()
+const getAll = () => {
+const products = readFile()
+return prod
+}
 
+const getById = (id)=> {
+    const dato = fs.readFileSync(nombreArchivo, 'utf-8');
+    const arrayFinal = JSON.parse(dato);
 
+    const indice = arrayFinal.findIndex((aProducts)=> aProducts.id == id);
 
+    if (indice < 0){
+        throw new Error ('El producto no existe');
+    }
+
+    return arrayFinal[indice];
+}
+
+const resultado = getById(1);
+
+console.log(resultado)
