@@ -1,32 +1,53 @@
 const fs = require('fs');
 const path = require('path');
 
-const nombreArchivo = 'products.json';
+const nameFile = 'products.json';
 
 const readFile = ()=> {
-    const dato = fs.readFileSync(nombreArchivo, 'utf-8');
+    const dato = fs.readFileSync(nameFile, 'utf-8');
     return JSON.parse(dato);
 
 }
 
 const getAll = () => {
 const products = readFile()
-return prod
+return products
 }
 
 const getById = (id)=> {
-    const dato = fs.readFileSync(nombreArchivo, 'utf-8');
-    const arrayFinal = JSON.parse(dato);
+    const products = readFile();
 
-    const indice = arrayFinal.findIndex((aProducts)=> aProducts.id == id);
+    const indice = products.findIndex((aProducts)=> aProducts.id == id);
 
     if (indice < 0){
         throw new Error ('El producto no existe');
     }
 
-    return arrayFinal[indice];
+    return products[indice];
 }
 
-const resultado = getById(1);
+const saveProducts = ()=> {
+    const data = JSON.stringify(products)
+    fs.writeFileSync(nameFile, JSON.stringify(), data)
+}
 
-console.log(resultado)
+const save = (data)=> {
+
+    if (!data.title || !data.price || typeof data.title !== 'string' || typeof data.price !== 'number') throw new Error('Datos invalidos')
+
+    const products = readFile();
+
+    const product = {
+        title: data.title,
+        price: data.price,
+        id: products[products.length - 1].id + 1
+    }
+
+    products.push(product)
+    saveProducts(products)
+}
+
+saveProducts({
+    title: "remera",
+    price: 22
+})
