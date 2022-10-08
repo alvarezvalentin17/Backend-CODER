@@ -26,28 +26,43 @@ const getById = (id)=> {
     return products[indice];
 }
 
-const saveProducts = ()=> {
-    const data = JSON.stringify(products)
-    fs.writeFileSync(nameFile, JSON.stringify(), data)
+const saveProducts = (products)=> {
+    const data = JSON.stringify(products, null, '\t')
+    fs.writeFileSync(nameFile, data)
 }
 
 const save = (data)=> {
-
+    
     if (!data.title || !data.price || typeof data.title !== 'string' || typeof data.price !== 'number') throw new Error('Datos invalidos')
-
+    
     const products = readFile();
-
+    
     const product = {
         title: data.title,
         price: data.price,
         id: products[products.length - 1].id + 1
     }
-
+    
     products.push(product)
     saveProducts(products)
+    
 }
 
-saveProducts({
-    title: "remera",
-    price: 22
-})
+const deleteAll = () => {
+    saveProducts([])
+}
+
+const deleteById = (id)=> {
+    const products = readFile();
+    const indice = products.findIndex((aProducts)=> aProducts.id == id);
+    if(indice < 0){
+        return;
+    }
+    products.splice(indice,1)
+    saveProducts(products)
+
+
+}
+
+
+
