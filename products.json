@@ -15,8 +15,13 @@
 		"id": 3
 	},
 	{
-		"title": "Monitor 24",
-		"price": 5000,
+		"title": "Chancleta",
+		"price": 500,
 		"id": 4
+	},
+	{
+		"title": "RAM",
+		"price": 34.5,
+		"id": 5
 	}
 ]
