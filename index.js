@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 class Contenedor {
-    constructor(archivo){
-        this.nameFile = archivo;
+    constructor(file){
+        this.nameFile = file;
     }
 
 
@@ -30,7 +30,7 @@ class Contenedor {
             throw new Error ('El producto no existe');
         }
 
-        return console.log(products[indice]);
+        return products[indice];
     }
 
     async saveProducts (products) {
